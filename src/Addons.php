@@ -104,6 +104,7 @@ abstract class Addons extends Controller
      */
     protected function fetch($template = '', $vars = [], $config = [])
     {
+        // 拼接插件视图文件的默认目录
         return $this->view->fetch($this->addons_path.$template.'.'.config('template.view_suffix'), $vars, $config);
     }
 
