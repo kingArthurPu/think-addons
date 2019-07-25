@@ -114,10 +114,8 @@ Hook::add('app_init', function () {
         }
         cache('addons', $config);
     }
-//    print_r($config);
     Config::set("addons.hooks",$config['hooks']);
-//    config('addons', $config);
-//    print_r(config());
+
 });
 
 // 闭包初始化行为
@@ -125,7 +123,6 @@ Hook::add('action_begin', function () {
     // 获取系统配置
     $data = App::isDebug() ? [] : Cache::get('hooks', []);
    $config = config('addons.');
-    // $config = Config::pull("addons");
     $addons = isset($config['hooks']) ? $config['hooks'] : [];
     if (empty($data)) {
         // 初始化钩子
