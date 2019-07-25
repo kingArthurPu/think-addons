@@ -22,7 +22,7 @@ abstract class Addons extends Controller
      *  'title'         => '测试插件',
      *  'description'   => '用于thinkphp5的插件扩展演示',
      *  'status'        => 1,
-     *  'author'        => 'byron sampson',
+     *  'author'        => 'kingarthur',
      *  'version'       => '0.1'
      * ]
      */
@@ -104,10 +104,6 @@ abstract class Addons extends Controller
      */
     protected function fetch($template = '', $vars = [], $config = [])
     {
-//        if(!\is_file($template)){
-//            $template = '/'.$template;
-//        }
-        echo $this->addons_path;
         return $this->view->fetch($this->addons_path.$template.'.'.config('template.view_suffix'), $vars, $config);
     }
 
