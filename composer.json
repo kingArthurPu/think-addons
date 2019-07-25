@@ -1,7 +1,7 @@
 {
     "name": "kingarthur/kingarthur-addons",
     "description": "kingarthur-addons",
-    "license": "Apache2.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "kingarthur.pu",
