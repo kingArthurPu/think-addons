@@ -314,6 +314,10 @@ if (!function_exists("get_addons_list")) {
                 continue;
             }
             $info = $class->info;
+            // 判断是否生成了config.php文件
+            if(is_file($addonsPath . $item . DIRECTORY_SEPARATOR.'config.php')){
+                $info['status'] = 1;
+            }
             $addonsList[] = $info;
         }
         return $addonsList;
