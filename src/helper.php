@@ -281,6 +281,46 @@ EOT;
     }
 }
 
+
+/**
+ * 获取插件列表
+ * @return array
+ */
+if (!function_exists("get_addons_list")) {
+    function get_addons_list()
+    {
+        $addonsPath = Env::get("addons_path");
+        // 遍历插件目录
+        $paths = scandir($addonsPath);
+        $addonsList = [];
+        foreach ($paths as $item) {
+            if ("." == $item || ".." == $item) {
+                continue;
+            }
+            // 定义插件有效性的规则：
+            // 1 插件名称是否首字母大写
+            $file = $addonsPath . $item . DIRECTORY_SEPARATOR . ucfirst("widget") . '.php';
+            if (!is_file($file)) {
+                continue;
+            }
+            if (!is_dir($addonsPath . $item)) {
+                continue;
+            }
+            // 获取插件信息
+            $class = get_addons_class($item);
+            $class = new $class();
+            // 2 插件描述信息是否正确
+            if (!$class->checkInfo()) {
+                continue;
+            }
+            $info = $class->info;
+            $addonsList[] = $info;
+        }
+        return $addonsList;
+    }
+}
+
+
 /**
  * 插件显示内容里生成访问插件的url
  * @param $url
