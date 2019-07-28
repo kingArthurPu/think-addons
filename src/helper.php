@@ -256,6 +256,32 @@ if (!function_exists('get_addons_info')) {
 }
 
 /**
+ * 生成插件配置文件
+ * @param array $config 配置信息
+ * @param string $name 配置文件名
+ * @return array
+ */
+if(!function_exists('create_config')){
+    function create_config($config,$name="config.php"){
+        $config_file=Env::get("addons_path").$config['name'].DIRECTORY_SEPARATOR.$name;
+
+        if(is_file($config_file) && file_exists($config_file)){
+            return false;
+        }
+        $config=var_export($config, true);
+        $content =<<<EOT
+    <?php
+    return {$config};
+EOT;
+        $result=file_put_contents($config_file,$content);
+        if($result===false){
+            return false;
+        }
+        return true;
+    }
+}
+
+/**
  * 插件显示内容里生成访问插件的url
  * @param $url
  * @param array $param
