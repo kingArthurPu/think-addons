@@ -161,10 +161,10 @@ hook('testhook', ['id'=>1])
 
 zzstudio/think-addons
 
-[git地址](https://github.com/zz-studio/think-addons)
+[gitee地址](https://github.com/zz-studio/think-addons)
 
 
 
 OkCoder/think-addons
 
-[git地址](https://gitee.com/okcoder/think-addons)
+[gitee地址](https://gitee.com/okcoder/think-addons)
