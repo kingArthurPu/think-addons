@@ -163,5 +163,8 @@ zzstudio/think-addons
 
 [git地址](https://github.com/zz-studio/think-addons)
 
-[composer地址](https://packagist.org/packages/zzstudio/think-addons)
 
+
+OkCoder/think-addons
+
+[git地址](https://gitee.com/okcoder/think-addons)
