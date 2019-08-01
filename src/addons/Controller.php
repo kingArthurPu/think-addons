@@ -14,10 +14,10 @@ use think\Loader;
 class Controller extends \think\Controller
 {
     // 当前插件操作
-    protected $addon = null;
-    protected $module = null;
-    protected $controller = null;
-    protected $action = null;
+    public $addon = null;
+    public $module = null;
+    public $controller = null;
+    public $action = null;
     // 当前template
     protected $template;
     // 模板配置信息
@@ -46,7 +46,12 @@ class Controller extends \think\Controller
     public function __construct($app = null)
     {
         parent::__construct($app);
+    }
 
+
+    public function initialize()
+    {
+        parent::initialize();
         // 处理路由参数
         $route = [
             $this->request->param('addon'),
