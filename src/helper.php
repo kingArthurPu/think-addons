@@ -228,10 +228,8 @@ if (!function_exists("addon_url")) {
             parse_str($url['query'], $query);
             $param = array_merge($query, $param);
         }
-
         // 生成插件链接新规则
         $actions = "{$addons}" . (isset($user) ? '-' . $user : '') . "-{$controller}-{$action}";
-
         return url("addons/execute/{$actions}", $param, $suffix, $domain);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace think\addons;
 
+use think\facade\Env;
 use think\facade\Hook;
+use think\facade\Request;
 
 /**
  * 插件执行默认控制器
@@ -37,8 +39,13 @@ class Route extends Controller
         if (!empty($this->addon) && !empty($this->controller) && !empty($this->action)) {
             // 获取类的命名空间
             $class = get_addon_class($this->addon, 'controller', $this->controller, $this->module);
+
             if (class_exists($class)) {
                 $model = new $class();
+                Request::setModule($this->module);
+                Request::setController($this->controller);
+                Request::setAction($this->action);
+                Env::set("ADDONS_NAME",$this->addon);
                 if ($model === false) {
                     abort(500, lang('addon init fail'));
                 }
