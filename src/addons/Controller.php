@@ -5,7 +5,7 @@ namespace think\addons;
 use think\facade\Env;
 use think\facade\Config;
 use think\Loader;
-
+use think\facade\Hook;
 /**
  * 插件基类控制器
  * Class Controller
@@ -67,6 +67,8 @@ class Controller extends \think\Controller
         $this->controller = $convert ? strtolower(array_pop($route)) : array_pop($route);
         $this->module = $convert ? strtolower(array_pop($route)) : array_pop($route);
         $this->addon = $convert ? strtolower(array_pop($route)) : array_pop($route);
+
+
 
         // 生成view_path
         $view_path = Env::get('addons_path') . $this->addon . ($this->module ? '/' . $this->module : '') . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR;

@@ -6,6 +6,7 @@ use think\facade\Config;
 use think\Loader;
 use think\facade\Cache;
 use think\facade\Route;
+use think\facade\Env;
 
 // 插件目录
 $appPath = App::getAppPath();
@@ -23,6 +24,7 @@ if (!is_dir($addons_path)) {
 
 // 注册类的根命名空间
 Loader::addNamespace('addons', $addons_path);
+
 
 // 闭包自动识别插件目录配置
 Hook::add('app_init', function () {
