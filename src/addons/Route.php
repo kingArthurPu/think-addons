@@ -45,7 +45,7 @@ class Route extends Controller
                 Request::setModule($this->module);
                 Request::setController($this->controller);
                 Request::setAction($this->action);
-                Env::set("ADDONS_NAME", $this->addon);
+                Env::set("ADDONS_NAME",$this->addon);
                 if ($model === false) {
                     abort(500, lang('addon init fail'));
                 }

@@ -36,8 +36,8 @@ abstract class Addons extends Controller
 //        if ($this->view) {
 //            $this->view->config('view_path', $this->addons_path );
 //        }
-
     }
+
     //必须实现安装
     abstract public function install();
 

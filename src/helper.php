@@ -6,7 +6,6 @@ use think\facade\Config;
 use think\Loader;
 use think\facade\Cache;
 use think\facade\Route;
-use think\facade\Env;
 
 // 插件目录
 $appPath = App::getAppPath();
@@ -25,7 +24,6 @@ if (!is_dir($addons_path)) {
 // 注册类的根命名空间
 Loader::addNamespace('addons', $addons_path);
 
-
 // 闭包自动识别插件目录配置
 Hook::add('app_init', function () {
     // 获取开关
@@ -42,10 +40,18 @@ Hook::add('app_init', function () {
         $base = get_class_methods("\\think\\Addons");
         // 读取插件目录中的php文件
         foreach (glob(Env::get('addons_path') . '*/*.php') as $addons_file) {
+
             // 格式化路径信息
             $info = pathinfo($addons_file);
             // 获取插件目录名
             $name = pathinfo($info['dirname'], PATHINFO_FILENAME);
+
+            // 判断插件是否安装成功
+            $config_file = \think\facade\Env::get('addons_path').$name.'/config.php';
+            if(!is_file($config_file)){
+                continue;
+            }
+
             // 找到插件入口文件
             if (strtolower($info['filename']) == strtolower($name)) {
                 // 读取出所有公共方法
@@ -54,6 +60,7 @@ Hook::add('app_init', function () {
                 $hooks = array_diff($methods, $base);
                 // 循环将钩子方法写入配置中
                 foreach ($hooks as $hook) {
+
                     if (!isset($config['hooks'][$hook])) {
                         $config['hooks'][$hook] = [];
                     }
@@ -69,6 +76,9 @@ Hook::add('app_init', function () {
         }
         cache('addons', $config);
     }
+    if(!$config){
+        return;
+    }
     config('addons.hooks', $config["hooks"]);
 });
 
@@ -78,7 +88,6 @@ Hook::add('action_begin', function () {
     $data = App::isDebug() ? [] : Cache::get('hooks', []);
     $config = config('addons.');
     $addons = isset($config['hooks']) ? $config['hooks'] : [];
-
     if (empty($data)) {
         // 初始化钩子
         foreach ($addons as $key => $values) {
