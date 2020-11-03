@@ -76,10 +76,8 @@ Hook::add('app_init', function () {
         }
         cache('addons', $config);
     }
-    if(!$config){
-        return;
-    }
-    config('addons.hooks', $config["hooks"]);
+
+    isset($config["hooks"]) ? config('addons.hooks', $config["hooks"]) : '';
 });
 
 // 闭包初始化行为
